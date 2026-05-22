@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Efes Duş Antalya — Akıllı Ürün Konfigüratörü</title>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #0b0f19;
+            --bg-surface: #151f32;
+            --bg-input: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #64748b;
+            --primary: #0d9488;
+            --primary-hover: #0f766e;
+            --primary-light: #2dd4bf;
+            --accent-glass: #38bdf8;
+            --accent-profile: #94a3b8;
+            --border: #334155;
+            --radius-lg: 12px;
+            --radius-md: 6px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+            --transition: all 0.15s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            max-width: 950px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-container {
+            background-color: #ffffff;
+            padding: 10px 24px;
+            border-radius: var(--radius-lg);
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+            max-width: 300px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo-img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+        }
+
+        header h1 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        header h1 span {
+            color: var(--primary-light);
+        }
+
+        header p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.3fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .main-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background-color: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .card-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-main);
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+            margin-bottom: 4px;
+        }
+
+        /* Dropdown styling */
+        .select-input {
+            width: 100%;
+            background-color: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .select-input:focus {
+            border-color: var(--primary-light);
+        }
+
+        /* Product Image Card */
+        .product-image-container {
+            width: 100%;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background-color: #0f172a55;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 280px;
+            position: relative;
+            padding: 12px;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transition: var(--transition);
+        }
+
+        .image-placeholder {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Preset Buttons */
+        .presets-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+        }
+
+        .preset-btn {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 10px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .preset-btn:hover, .preset-btn.active {
+            border-color: var(--primary-light);
+            background-color: #2dd4bf11;
+            color: var(--primary-light);
+        }
+
+        /* Custom Inputs */
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .input-box {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-box label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .number-input {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 10px;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            width: 100%;
+            outline: none;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .number-input:focus {
+            border-color: var(--primary-light);
+        }
+
+        /* Advanced Settings Collapsible */
+        .advanced-toggle {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 12px;
+            cursor: pointer;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 4px;
+            transition: var(--transition);
+        }
+
+        .advanced-toggle:hover {
+            color: var(--primary-light);
+        }
+
+        .advanced-panel {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            background-color: #0f172a55;
+            padding: 12px;
+            border-radius: var(--radius-md);
+            border: 1px dashed var(--border);
+            margin-top: 4px;
+        }
+
+        .advanced-panel.open {
+            display: flex;
+        }
+
+        .text-input {
+            width: 100%;
+            background-color: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 10px 14px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        /* Outputs Styling */
+        .bom-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .group-header {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            margin-bottom: 2px;
+        }
+
+        .bom-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            background-color: var(--bg-input);
+            border-radius: var(--radius-md);
+            border: 1px solid #33415555;
+            transition: var(--transition);
+        }
+
+        .bom-item .name {
+            font-size: 13px;
+            font-weight: 500;
+            color: #cbd5e1;
+        }
+
+        .bom-item .value {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-light);
+        }
+
+        .print-btn {
+            background-color: var(--primary);
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 12px;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 8px;
+        }
+
+        .print-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Print Area */
+        @media print {
+            body {
+                background: white !important;
+                color: black !important;
+                padding: 0;
+            }
+            header, .select-input, .product-image-container, .presets-grid, .input-row, .advanced-toggle, .advanced-panel, .print-btn, .card-title, .card:first-child {
+                display: none !important;
+            }
+            .card {
+                border: none !important;
+                box-shadow: none !important;
+                background: white !important;
+                width: 100% !important;
+            }
+            .bom-item {
+                background: #f8fafc !important;
+                border: 1px solid #e2e8f0 !important;
+            }
+            .bom-item .name, .bom-item .value {
+                color: black !important;
+            }
+            .print-title {
+                display: block !important;
+                text-align: center;
+                border-bottom: 2px solid black;
+                padding-bottom: 10px;
+                margin-bottom: 20px;
+            }
+            .hide-costs-print {
+                display: none !important;
+            }
+        }
+
+        .print-title {
+            display: none;
+        }
+
+        /* --- PREMIUM GLASSMORPHIC LOGIN OVERLAY STYLES --- */
+        #login-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, #151f32 0%, #0b0f19 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.4s;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #login-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .login-card {
+            background: rgba(21, 31, 50, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 40px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .login-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .login-input-group {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .login-input-group label {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-muted);
+        }
+
+        .login-input {
+            background-color: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 12px 16px;
+            border-radius: var(--radius-md);
+            font-size: 15px;
+            font-weight: 600;
+            width: 100%;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .login-input:focus {
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 2px rgba(45, 212, 191, 0.15);
+        }
+
+        .login-btn {
+            width: 100%;
+            background-color: var(--primary);
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 600;
+            padding: 14px;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .login-btn:active {
+            transform: translateY(1px);
+        }
+
+        .login-error {
+            font-size: 12px;
+            color: #f87171;
+            font-weight: 500;
+            margin-top: 6px;
+            display: none;
+            align-items: center;
+            gap: 4px;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
+
+        .shake {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @media print {
+            #login-overlay {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- GİRİŞ PANELİ (LOGIN OVERLAY) -->
+    <div id="login-overlay">
+        <div class="login-card" id="login-card">
+            <div class="logo-container" style="margin-bottom: 24px; background-color: #ffffff; padding: 10px 24px; border-radius: var(--radius-lg); display: flex; justify-content: center; align-items: center; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3); max-width: 260px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                <img src="efes-dus-logo.png" class="logo-img" alt="Efes Duş Logo" style="height: 40px; width: auto; object-fit: contain;">
+            </div>
+            <h2 class="login-title">Atölye Otomasyonu Girişi</h2>
+            <p class="login-subtitle">Efes Duş Antalya akıllı üretim sistemine erişmek için lütfen yetkili şifresini girin.</p>
+            
+            <div class="login-input-group">
+                <label for="login-password">Yetkili Giriş Şifresi</label>
+                <input type="password" id="login-password" class="login-input" placeholder="••••••••" autocomplete="current-password" autofocus>
+                <div id="login-error" class="login-error">
+                    <span>❌</span> Hatalı şifre! Lütfen tekrar deneyin.
+                </div>
+            </div>
+            
+            <button class="login-btn" id="login-submit" onclick="handleLogin()">Giriş Yap</button>
+        </div>
+    </div>
+
+    <div class="print-title">
+        <h2>EFES DUŞ ANTALYA</h2>
+        <p>Bella Atölye Kesim ve Cam Sipariş Fişi</p>
+        <p style="margin-top: 8px; font-size: 15px; font-weight: bold; color: black;">👤 Müşteri/Sipariş: <span id="print-customer">Standart Sipariş</span></p>
+        <p id="print-date" style="margin-top: 4px; font-size: 12px; color: #555;"></p>
+    </div>
+
+    <div id="app-container" style="display: none;">
+        <div class="container">
+        <header>
+            <div class="logo-container">
+                <img src="efes-dus-logo.png" class="logo-img" alt="Efes Duş Logo">
+            </div>
+            <p>Çoklu Ürün Model Kesim Hesaplama Otomasyonu</p>
+        </header>
+
+        <div class="main-layout">
+            <!-- INPUTS -->
+            <div class="card">
+                <div class="card-title">📦 Ürün ve Model Seçimi</div>
+                
+                <!-- Product Selector Dropdown -->
+                <div class="input-box">
+                    <label for="model-selector">Aktif Duş Kabini Modeli</label>
+                    <select id="model-selector" class="select-input" onchange="onModelChange()">
+                        <option value="bella-kare">Bella Kare (Köşe Giriş Sürgülü)</option>
+                        <option value="bella-niche">Bella İki Duvar Arası (Niche Sürgülü)</option>
+                        <option value="bella-walkin">Bella Walk-In (Sabit Panel)</option>
+                        <option value="bella-pivot">Bella Pivot (Menteşeli Kapı)</option>
+                        <option value="bella-oval">Bella Oval (Kavisli Köşe Girişli)</option>
+                    </select>
+                </div>
+
+                <!-- Müşteri ve Sipariş Detayı -->
+                <div class="input-box">
+                    <label for="customer-input">Müşteri Adı / Sipariş Numarası</label>
+                    <input type="text" id="customer-input" class="text-input" placeholder="Örn: Ahmet Yılmaz / Lara Projesi" oninput="calculate()" style="font-weight: 500;">
+                </div>
+
+                <!-- Product Dynamic Image -->
+                <div class="product-image-container">
+                    <img id="product-img" class="product-img" src="bella-kare.png" alt="Bella Kare" onerror="fallbackImage()">
+                    <div id="image-fallback" class="image-placeholder" style="display:none;">
+                        📸 <span id="fallback-text">Bella Kare Görseli</span>
+                    </div>
+                </div>
+
+                <div class="card-title" style="border:none; padding:0; margin-top:8px;">📐 Ölçü Girişi</div>
+
+                <!-- Quick Preset Sizes (Hide for Walk-In / Custom) -->
+                <div class="input-box" id="presets-container">
+                    <label>Hızlı Ölçüler</label>
+                    <div class="presets-grid">
+                        <button class="preset-btn active" id="btn-90-90" onclick="applyPreset(90, 90, this)">90 x 90</button>
+                        <button class="preset-btn" id="btn-100-100" onclick="applyPreset(100, 100, this)">100 x 100</button>
+                        <button class="preset-btn" id="btn-120-90" onclick="applyPreset(120, 90, this)">120 x 90</button>
+                    </div>
+                </div>
+
+                <!-- Custom Input Fields -->
+                <div class="input-row">
+                    <div class="input-box" id="width-container">
+                        <label id="width-label" for="width-input">Sol Duvar (cm)</label>
+                        <input type="number" id="width-input" class="number-input" value="90" oninput="onCustomChange()">
+                    </div>
+                    <div class="input-box" id="depth-container">
+                        <label id="depth-label" for="depth-input">Sağ Duvar (cm)</label>
+                        <input type="number" id="depth-input" class="number-input" value="90" oninput="onCustomChange()">
+                    </div>
+                </div>
+
+                <div class="input-box">
+                    <label for="height-input">Kabin Yükseklik (cm)</label>
+                    <input type="number" id="height-input" class="number-input" value="190" oninput="onCustomChange()">
+                </div>
+
+                <!-- Advanced Settings Toggle -->
+                <button class="advanced-toggle" onclick="toggleAdvanced()">
+                    <span>⚙️</span> Gelişmiş Atölye Ayarlarını Göster
+                </button>
+
+                <!-- Advanced settings panel (Hidden by default) -->
+                <div id="advanced-panel" class="advanced-panel">
+                    <div class="input-box">
+                        <label for="ray-offset-input">Ray Kesim Payı (cm)</label>
+                        <input type="number" id="ray-offset-input" class="number-input" value="2.5" step="0.1" oninput="calculate()">
+                    </div>
+                    <div class="input-box">
+                        <label for="stock-glass-input">Stok Cam Ölçüleri (cm)</label>
+                        <input type="text" id="stock-glass-input" class="text-input" value="15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70" oninput="calculate()">
+                    </div>
+                    <div style="border-top: 1px dashed var(--border); margin-top: 6px; padding-top: 8px;">
+                        <span style="font-size:12px; font-weight:700; color:var(--primary-light); text-transform:uppercase;">💰 MALİYET PARAMETRELERİ (TL)</span>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-box">
+                            <label for="price-glass-input">Cam (TL / m²)</label>
+                            <input type="number" id="price-glass-input" class="number-input" value="500" oninput="calculate()">
+                        </div>
+                        <div class="input-box">
+                            <label for="price-ray-input">Ray Profil (TL / m)</label>
+                            <input type="number" id="price-ray-input" class="number-input" value="150" oninput="calculate()">
+                        </div>
+                    </div>
+                    <div class="input-row">
+                        <div class="input-box">
+                            <label for="price-dikme-input">Duvar Profil (TL / m)</label>
+                            <input type="number" id="price-dikme-input" class="number-input" value="120" oninput="calculate()">
+                        </div>
+                        <div class="input-box">
+                            <label for="price-acc-input">Aksesuar Paketi (TL)</label>
+                            <input type="number" id="price-acc-input" class="number-input" value="400" oninput="calculate()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OUTPUTS -->
+            <div class="card">
+                <div class="card-title" id="output-title">🪚 Bella Kare Kesim Reçetesi</div>
+
+                <div id="bom-outputs">
+                    <!-- Dynamic Outputs will be inserted here by JavaScript -->
+                </div>
+
+                <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border); display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted);">
+                    <input type="checkbox" id="show-costs-checkbox" onchange="toggleCostsPrint()" style="cursor:pointer; width:16px; height:16px;">
+                    <label for="show-costs-checkbox" style="cursor:pointer; user-select:none; color: var(--text-main); font-weight: 500;">💰 Maliyet Raporunu Çıktıda Göster</label>
+                </div>
+
+                <button class="print-btn" onclick="triggerPrint()">🖨️ Kesim Fişini Yazdır</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script>
+        const modelSelector = document.getElementById('model-selector');
+        const customerInput = document.getElementById('customer-input');
+        const productImg = document.getElementById('product-img');
+        const imageFallback = document.getElementById('image-fallback');
+        const fallbackText = document.getElementById('fallback-text');
+        
+        const widthInput = document.getElementById('width-input');
+        const depthInput = document.getElementById('depth-input');
+        const heightInput = document.getElementById('height-input');
+        
+        const widthContainer = document.getElementById('width-container');
+        const depthContainer = document.getElementById('depth-container');
+        const presetsContainer = document.getElementById('presets-container');
+        const widthLabel = document.getElementById('width-label');
+        
+        const rayOffsetInput = document.getElementById('ray-offset-input');
+        const stockGlassInput = document.getElementById('stock-glass-input');
+        const advancedPanel = document.getElementById('advanced-panel');
+        const outputTitle = document.getElementById('output-title');
+        const bomOutputs = document.getElementById('bom-outputs');
+
+        // Price selectors
+        const priceGlassInput = document.getElementById('price-glass-input');
+        const priceRayInput = document.getElementById('price-ray-input');
+        const priceDikmeInput = document.getElementById('price-dikme-input');
+        const priceAccInput = document.getElementById('price-acc-input');
+        const showCostsCheckbox = document.getElementById('show-costs-checkbox');
+
+        // Login selectors
+        const loginOverlay = document.getElementById('login-overlay');
+        const loginCard = document.getElementById('login-card');
+        const loginPasswordInput = document.getElementById('login-password');
+        const loginErrorMsg = document.getElementById('login-error');
+        const appContainer = document.getElementById('app-container');
+
+        // Session storage check
+        function checkLoginStatus() {
+            if (sessionStorage.getItem('efes_logged_in') === 'true') {
+                if (loginOverlay) loginOverlay.style.display = 'none';
+                if (appContainer) appContainer.style.display = 'block';
+            } else {
+                if (loginOverlay) loginOverlay.style.display = 'flex';
+                if (appContainer) appContainer.style.display = 'none';
+                // Focus on password input
+                setTimeout(() => {
+                    if (loginPasswordInput) loginPasswordInput.focus();
+                }, 100);
+            }
+        }
+
+        // Handle Login Submission
+        function handleLogin() {
+            if (!loginPasswordInput) return;
+            const password = loginPasswordInput.value;
+            if (password === 'efesdus07') {
+                // Successful Auth
+                sessionStorage.setItem('efes_logged_in', 'true');
+                if (loginErrorMsg) loginErrorMsg.style.display = 'none';
+                
+                // Sleek fade-out transition
+                if (loginOverlay) loginOverlay.classList.add('hidden');
+                if (appContainer) appContainer.style.display = 'block';
+                
+                setTimeout(() => {
+                    if (loginOverlay) loginOverlay.style.display = 'none';
+                }, 400);
+            } else {
+                // Mismatch Auth
+                if (loginErrorMsg) loginErrorMsg.style.display = 'flex';
+                if (loginCard) loginCard.classList.add('shake');
+                loginPasswordInput.value = '';
+                loginPasswordInput.focus();
+                
+                // Remove shake class after animation finishes so it can be re-triggered
+                setTimeout(() => {
+                    if (loginCard) loginCard.classList.remove('shake');
+                }, 400);
+            }
+        }
+
+        // Event listener for Enter key in password field
+        if (loginPasswordInput) {
+            loginPasswordInput.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter') {
+                    handleLogin();
+                }
+            });
+        }
+
+        // Initialize login check immediately
+        checkLoginStatus();
+
+        // Preset sizes
+        function applyPreset(w, d, button) {
+            widthInput.value = w;
+            depthInput.value = d;
+            
+            const buttons = document.querySelectorAll('.preset-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            calculate();
+        }
+
+        function onCustomChange() {
+            const buttons = document.querySelectorAll('.preset-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            calculate();
+        }
+
+        function toggleAdvanced() {
+            advancedPanel.classList.toggle('open');
+        }
+
+        function toggleCostsPrint() {
+            const costGroup = document.getElementById('maliyet-grubu');
+            if (costGroup) {
+                if (showCostsCheckbox.checked) {
+                    costGroup.classList.remove('hide-costs-print');
+                } else {
+                    costGroup.classList.add('hide-costs-print');
+                }
+            }
+        }
+
+        // Image loading fallback
+        function fallbackImage() {
+            productImg.style.display = 'none';
+            imageFallback.style.display = 'flex';
+            
+            const model = modelSelector.value;
+            if (model === 'bella-kare') fallbackText.innerText = "Bella Kare Görseli (bella-kare.png)";
+            else if (model === 'bella-niche') fallbackText.innerText = "Bella İki Duvar Arası (Niche) Şeması";
+            else if (model === 'bella-walkin') fallbackText.innerText = "Bella Walk-In Görseli";
+            else if (model === 'bella-pivot') fallbackText.innerText = "Bella Pivot Görseli";
+            else if (model === 'bella-oval') fallbackText.innerText = "Bella Oval Görseli";
+        }
+
+        // Handle model selection change
+        function onModelChange() {
+            const model = modelSelector.value;
+            
+            // Set dynamic header title for output card
+            const selectedText = modelSelector.options[modelSelector.selectedIndex].text;
+            outputTitle.innerText = "🪚 " + selectedText + " Reçetesi";
+
+            // Configure dynamic inputs based on selected product model
+            if (model === 'bella-kare' || model === 'bella-oval') {
+                widthContainer.style.display = 'flex';
+                depthContainer.style.display = 'flex';
+                presetsContainer.style.display = 'flex';
+                widthLabel.innerText = "Sol Duvar (cm)";
+                
+                widthInput.value = 90;
+                depthInput.value = 90;
+                
+                // Show preset button highlights
+                const buttons = document.querySelectorAll('.preset-btn');
+                buttons.forEach(btn => btn.classList.remove('active'));
+                document.getElementById('btn-90-90').classList.add('active');
+            } 
+            else if (model === 'bella-niche' || model === 'bella-pivot') {
+                widthContainer.style.display = 'flex';
+                depthContainer.style.display = 'none'; // Only 1 width needed
+                presetsContainer.style.display = 'none'; // No corner presets
+                widthLabel.innerText = "Genişlik Ölçüsü (cm)";
+                
+                widthInput.value = 100;
+            } 
+            else if (model === 'bella-walkin') {
+                widthContainer.style.display = 'flex';
+                depthContainer.style.display = 'none'; // Single glass
+                presetsContainer.style.display = 'none';
+                widthLabel.innerText = "Genişlik Ölçüsü (cm)";
+                
+                widthInput.value = 80;
+            }
+
+            // Update Image
+            if (model === 'bella-kare') {
+                productImg.src = "bella-kare.png";
+                productImg.style.display = 'block';
+                imageFallback.style.display = 'none';
+            } else {
+                fallbackImage(); // Fallback schematics for other models
+            }
+
+            calculate();
+        }
+
+        // Helper to calculate raw 6m profile needs and scrap
+        function calculateProfileScrap(cuts) {
+            const barLength = 600; // 6 meters = 600 cm
+            let bars = []; // stores remaining length of each used bar
+            
+            // Sort cuts descending to optimize layout (First Fit Decreasing)
+            const sortedCuts = [...cuts].sort((a, b) => b - a);
+            
+            for (let cut of sortedCuts) {
+                let placed = false;
+                for (let i = 0; i < bars.length; i++) {
+                    if (bars[i] >= cut) {
+                        bars[i] -= cut;
+                        placed = true;
+                        break;
+                    }
+                }
+                if (!placed) {
+                    bars.push(barLength - cut);
+                }
+            }
+            
+            return {
+                barsCount: bars.length,
+                scraps: bars.map(v => parseFloat(v.toFixed(1)))
+            };
+        }
+
+        // Helper to generate HTML for scrap analysis
+        function generateAnalysisHTML(rayCuts, dikmeCuts, rayName = "Ray Profili", dikmeName = "Duvar Dikmesi Profili") {
+            let html = `
+                <div class="bom-group">
+                    <div class="group-header" style="color: #10b981;">📉 HAMMADDE & PROFİL ANALİZİ (6m BOY HESABI)</div>
+            `;
+            
+            if (rayCuts && rayCuts.length > 0) {
+                let rayAnalysis = calculateProfileScrap(rayCuts);
+                html += `
+                    <div class="bom-item">
+                        <span class="name"><b>${rayName}</b> (${rayCuts.length} Kesim)</span>
+                        <span class="value" style="color: #34d399;">${rayAnalysis.barsCount} Boy (6m)</span>
+                    </div>
+                    <div class="bom-item" style="background:transparent; border:none; padding:2px 12px; margin-top:-6px;">
+                        <span class="name" style="font-size:12px; color:var(--text-muted);">Artan Fire Parçası</span>
+                        <span class="value" style="font-size:12px; color:#f87171;">${rayAnalysis.scraps.join(' cm, ')} cm</span>
+                    </div>
+                `;
+            }
+            
+            if (dikmeCuts && dikmeCuts.length > 0) {
+                let dikmeAnalysis = calculateProfileScrap(dikmeCuts);
+                html += `
+                    <div class="bom-item" style="margin-top:6px;">
+                        <span class="name"><b>${dikmeName}</b> (${dikmeCuts.length} Kesim)</span>
+                        <span class="value" style="color: #34d399;">${dikmeAnalysis.barsCount} Boy (6m)</span>
+                    </div>
+                    <div class="bom-item" style="background:transparent; border:none; padding:2px 12px; margin-top:-6px;">
+                        <span class="name" style="font-size:12px; color:var(--text-muted);">Artan Fire Parçası</span>
+                        <span class="value" style="font-size:12px; color:#f87171;">${dikmeAnalysis.scraps.join(' cm, ')} cm</span>
+                    </div>
+                `;
+            }
+            
+            html += `</div>`;
+            return html;
+        }
+
+        // Main Calculation Engine
+        function calculate() {
+            const model = modelSelector.value;
+            const width = parseFloat(widthInput.value) || 90;
+            const depth = parseFloat(depthInput.value) || 90;
+            const height = parseFloat(heightInput.value) || 190;
+            const rayOffset = parseFloat(rayOffsetInput.value) || 2.5;
+            
+            // Standard stock glass array
+            let stockGlassSizes = [15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70];
+            try {
+                stockGlassSizes = stockGlassInput.value
+                    .split(',')
+                    .map(s => parseFloat(s.trim()))
+                    .filter(n => !isNaN(n))
+                    .sort((a, b) => a - b);
+            } catch (e) {}
+
+            const customerName = customerInput.value.trim() || "Standart Sipariş";
+            document.getElementById('print-customer').innerText = customerName;
+
+            let htmlContent = `
+                <div class="bom-group" style="margin-bottom: 8px;">
+                    <div class="bom-item" style="border-left: 4px solid var(--primary-light); background: #0f172a88;">
+                        <span class="name" style="font-weight: 600;">👤 MÜŞTERİ / SİPARİŞ</span>
+                        <span class="value" style="color: var(--text-main);">${customerName}</span>
+                    </div>
+                </div>
+            `;
+
+            // --- MODEL 1: BELLA KARE (Symmetrical Corner Sliding) ---
+            if (model === 'bella-kare') {
+                let bestSabit = 45;
+                let bestKapi = 50;
+                let minDiff = 999;
+                let currentOverlap = 3;
+                
+                for (let s of stockGlassSizes) {
+                    for (let k of stockGlassSizes) {
+                        let totalGlass = s + k;
+                        let overlap = totalGlass - width;
+                        if (overlap >= 2.0 && overlap <= 6.0) {
+                            let diff = Math.abs(overlap - 3.5);
+                            if (diff < minDiff) {
+                                minDiff = diff;
+                                bestSabit = s;
+                                bestKapi = k;
+                                currentOverlap = overlap;
+                            }
+                        }
+                    }
+                }
+
+                htmlContent = `
+                    <div class="bom-group">
+                        <div class="group-header" style="color: var(--accent-glass);">📦 CAM BOYUTLARI (STOKTAN ALINACAK)</div>
+                        <div class="bom-item"><span class="name">Sabit Yan Camlar (2 Adet)</span><span class="value">${bestSabit.toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Kayan Kapı Camları (2 Adet)</span><span class="value">${bestKapi.toFixed(1)} cm</span></div>
+                        <div class="bom-item" style="background:transparent; border:none; padding:4px 0;"><span class="name" style="font-size:12px; color:var(--text-muted);">Cam Biniş Toleransı</span><span class="value" style="font-size:12px; color:var(--text-muted);">${currentOverlap.toFixed(1)} cm biniş</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: var(--accent-profile);">🪚 ATÖLYE KESİM ÖLÇÜLERİ</div>
+                        <div class="bom-item"><span class="name">Sol Yön Ray Kesimi (2 Adet)</span><span class="value">${(width - rayOffset).toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Sağ Yön Ray Kesimi (2 Adet)</span><span class="value">${(depth - rayOffset).toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Duvar Dikmesi Boyu (2 Adet)</span><span class="value">${height.toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Mıknatıs Boyu (2 Adet)</span><span class="value">${(height - 1.5).toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: #f59e0b;">🔩 AKSESUARLAR</div>
+                        <div class="bom-item"><span class="name">Köşe Takozu (Bella)</span><span class="value">4 Adet</span></div>
+                        <div class="bom-item"><span class="name">Rulman Tekerlekleri</span><span class="value">8 Adet</span></div>
+                        <div class="bom-item"><span class="name">Alt Su Damlalık Fitili (Suluk)</span><span class="value">${bestKapi.toFixed(1)} cm (2 Adet)</span></div>
+                        <div class="bom-item"><span class="name">Kapı Kulbu (Set)</span><span class="value">2 Set</span></div>
+                    </div>
+                `;
+            }
+            
+            // --- MODEL 2: BELLA NICHE (1 Fixed + 1 Sliding Slider between two walls) ---
+            else if (model === 'bella-niche') {
+                let bestSabit = 50;
+                let bestKapi = 55;
+                let minDiff = 999;
+                let currentOverlap = 3;
+                
+                for (let s of stockGlassSizes) {
+                    for (let k of stockGlassSizes) {
+                        let totalGlass = s + k;
+                        let overlap = totalGlass - width;
+                        if (overlap >= 3.0 && overlap <= 7.0) {
+                            let diff = Math.abs(overlap - 4.5);
+                            if (diff < minDiff) {
+                                minDiff = diff;
+                                bestSabit = s;
+                                bestKapi = k;
+                                currentOverlap = overlap;
+                            }
+                        }
+                    }
+                }
+
+                htmlContent = `
+                    <div class="bom-group">
+                        <div class="group-header" style="color: var(--accent-glass);">📦 CAM BOYUTLARI (STOKTAN ALINACAK)</div>
+                        <div class="bom-item"><span class="name">Sabit Duvar Camı (1 Adet)</span><span class="value">${bestSabit.toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Kayan Kapı Camı (1 Adet)</span><span class="value">${bestKapi.toFixed(1)} cm</span></div>
+                        <div class="bom-item" style="background:transparent; border:none; padding:4px 0;"><span class="name" style="font-size:12px; color:var(--text-muted);">Düz Bindirme</span><span class="value" style="font-size:12px; color:var(--text-muted);">${currentOverlap.toFixed(1)} cm biniş</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: var(--accent-profile);">🪚 ATÖLYE KESİM ÖLÇÜLERİ</div>
+                        <div class="bom-item"><span class="name">Üst/Alt Düz Ray Kesimi (2 Adet)</span><span class="value">${(width - 1.5).toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Duvar Dikmesi Boyu (2 Adet)</span><span class="value">${height.toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Mıknatıslı Duvar Profili Contası</span><span class="value">${height.toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: #f59e0b;">🔩 AKSESUARLAR</div>
+                        <div class="bom-item"><span class="name">Niche Rulman Tekerlekleri</span><span class="value">4 Adet</span></div>
+                        <div class="bom-item"><span class="name">Alt Su Fitili (Suluk)</span><span class="value">${bestKapi.toFixed(1)} cm (1 Adet)</span></div>
+                        <div class="bom-item"><span class="name">Düz Kapı Kulbu</span><span class="value">1 Set</span></div>
+                    </div>
+                `;
+            }
+
+            // --- MODEL 3: BELLA WALK-IN (Single Stationary panel) ---
+            else if (model === 'bella-walkin') {
+                // Find stock size closest to input width
+                const bestSabit = stockGlassSizes.reduce((prev, curr) => Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev, 80);
+
+                htmlContent = `
+                    <div class="bom-group">
+                        <div class="group-header" style="color: var(--accent-glass);">📦 CAM BOYUTLARI</div>
+                        <div class="bom-item"><span class="name">Walk-In Sabit Cam (1 Adet)</span><span class="value">${bestSabit.toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: var(--accent-profile);">🪚 ATÖLYE KESİM ÖLÇÜLERİ</div>
+                        <div class="bom-item"><span class="name">U-Profil Duvar Kesimi (1 Adet)</span><span class="value">${height.toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">U-Profil Zemin Kesimi (1 Adet)</span><span class="value">${bestSabit.toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: #f59e0b;">🔩 DESTEK APARATLARI</div>
+                        <div class="bom-item"><span class="name">Teleskopik Duvar Denge Gergisi</span><span class="value">1 Adet (Ayarlı: 80-120cm)</span></div>
+                        <div class="bom-item"><span class="name">Zemin Su Eşiği Bariyeri</span><span class="value">${bestSabit.toFixed(1)} cm</span></div>
+                    </div>
+                `;
+            }
+
+            // --- MODEL 4: BELLA PIVOT (Swing Hinge door between two walls) ---
+            else if (model === 'bella-pivot') {
+                // Symmetrical hinge door configuration
+                const bestKapi = stockGlassSizes.reduce((prev, curr) => Math.abs(curr - (width - 4)) < Math.abs(prev - (width - 4)) ? curr : prev, 70);
+
+                htmlContent = `
+                    <div class="bom-group">
+                        <div class="group-header" style="color: var(--accent-glass);">📦 CAM BOYUTLARI</div>
+                        <div class="bom-item"><span class="name">Menteşeli Kapı Camı (1 Adet)</span><span class="value">${bestKapi.toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: var(--accent-profile);">🪚 ATÖLYE KESİM ÖLÇÜLERİ</div>
+                        <div class="bom-item"><span class="name">Menteşeli Duvar Profili (1 Adet)</span><span class="value">${height.toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Mıknatıslı Karşı Duvar Profili</span><span class="value">${height.toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: #f59e0b;">🔩 PİVOT AKSESUARLARI</div>
+                        <div class="bom-item"><span class="name">Pirinç Boy Menteşe Takımı</span><span class="value">1 Çift (Üst & Alt)</span></div>
+                        <div class="bom-item"><span class="name">Manyetik Kapı Fitili (90 Derece)</span><span class="value">1 Çift</span></div>
+                        <div class="bom-item"><span class="name">Suluk Damlalık Fitili</span><span class="value">${bestKapi.toFixed(1)} cm (1 Adet)</span></div>
+                        <div class="bom-item"><span class="name">Pivot Topuz Kulp</span><span class="value">1 Adet</span></div>
+                    </div>
+                `;
+            }
+
+            // --- MODEL 5: BELLA OVAL (Neo-Angle / Curved sliding door entry) ---
+            else if (model === 'bella-oval') {
+                let bestSabit = 45;
+                let bestKapi = 50;
+                let minDiff = 999;
+                let currentOverlap = 3;
+                
+                for (let s of stockGlassSizes) {
+                    for (let k of stockGlassSizes) {
+                        let totalGlass = s + k;
+                        let overlap = totalGlass - width;
+                        if (overlap >= 2.0 && overlap <= 6.0) {
+                            let diff = Math.abs(overlap - 3.5);
+                            if (diff < minDiff) {
+                                minDiff = diff;
+                                bestSabit = s;
+                                bestKapi = k;
+                                currentOverlap = overlap;
+                            }
+                        }
+                    }
+                }
+
+                htmlContent = `
+                    <div class="bom-group">
+                        <div class="group-header" style="color: var(--accent-glass);">📦 CAM BOYUTLARI (STOKTAN ALINACAK)</div>
+                        <div class="bom-item"><span class="name">Düz Sabit Yan Camlar (2 Adet)</span><span class="value">${bestSabit.toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Kavisli Oval Kapı Camları (2 Adet)</span><span class="value">${bestKapi.toFixed(1)} cm (KAVİSLİ)</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: var(--accent-profile);">🪚 ATÖLYE KESİM ÖLÇÜLERİ</div>
+                        <div class="bom-item"><span class="name">Oval Kavisli Ray Profili (2 Adet)</span><span class="value">${(width - rayOffset).toFixed(1)} cm (OVAL BÜKÜM)</span></div>
+                        <div class="bom-item"><span class="name">Duvar Dikmesi Boyu (2 Adet)</span><span class="value">${height.toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Düz-Mıknatıs Boyu (2 Adet)</span><span class="value">${(height - 1.5).toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: #f59e0b;">🔩 OVAL AKSESUARLAR</div>
+                        <div class="bom-item"><span class="name">Bükümlü Köşe Takozu (Bella Oval)</span><span class="value">4 Adet</span></div>
+                        <div class="bom-item"><span class="name">Alt Su Fitili (Suluk - Oval Uyumlu)</span><span class="value">${bestKapi.toFixed(1)} cm (2 Adet)</span></div>
+                        <div class="bom-item"><span class="name">Çift Tekerlekli Rulmanlar (Oval Uyumlu)</span><span class="value">8 Adet</span></div>
+                        <div class="bom-item"><span class="name">Kapı Kulbu (Set)</span><span class="value">2 Set</span></div>
+                    </div>
+                `;
+            }
+
+            // Generate dynamic 6m raw profile analysis and cost estimations
+            let rayCuts = [];
+            let dikmeCuts = [];
+            let rayName = "Ray Profili";
+            let dikmeName = "Duvar Dikmesi Profili";
+
+            let glassArea = 0;
+            let rayLength = 0;
+            let dikmeLength = 0;
+
+            if (model === 'bella-kare') {
+                let bestSabit = 45;
+                let bestKapi = 50;
+                let minDiff = 999;
+                for (let s of stockGlassSizes) {
+                    for (let k of stockGlassSizes) {
+                        let totalGlass = s + k;
+                        let overlap = totalGlass - width;
+                        if (overlap >= 2.0 && overlap <= 6.0) {
+                            let diff = Math.abs(overlap - 3.5);
+                            if (diff < minDiff) {
+                                minDiff = diff;
+                                bestSabit = s;
+                                bestKapi = k;
+                            }
+                        }
+                    }
+                }
+                glassArea = (2 * bestSabit + 2 * bestKapi) / 100 * (height / 100);
+                rayLength = (2 * (width - rayOffset) + 2 * (depth - rayOffset)) / 100;
+                dikmeLength = (2 * height) / 100;
+                rayCuts = [width - rayOffset, width - rayOffset, depth - rayOffset, depth - rayOffset];
+                dikmeCuts = [height, height];
+            } else if (model === 'bella-niche') {
+                let bestSabit = 50;
+                let bestKapi = 55;
+                let minDiff = 999;
+                for (let s of stockGlassSizes) {
+                    for (let k of stockGlassSizes) {
+                        let totalGlass = s + k;
+                        let overlap = totalGlass - width;
+                        if (overlap >= 3.0 && overlap <= 7.0) {
+                            let diff = Math.abs(overlap - 4.5);
+                            if (diff < minDiff) {
+                                minDiff = diff;
+                                bestSabit = s;
+                                bestKapi = k;
+                            }
+                        }
+                    }
+                }
+                glassArea = (bestSabit + bestKapi) / 100 * (height / 100);
+                rayLength = (2 * (width - 1.5)) / 100;
+                dikmeLength = (2 * height) / 100;
+                rayCuts = [width - 1.5, width - 1.5];
+                dikmeCuts = [height, height];
+            } else if (model === 'bella-walkin') {
+                const bestSabit = stockGlassSizes.reduce((prev, curr) => Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev, 80);
+                glassArea = bestSabit / 100 * (height / 100);
+                rayLength = bestSabit / 100; // Zemin U-profil
+                dikmeLength = height / 100; // Duvar U-profil
+                rayCuts = [bestSabit];
+                dikmeCuts = [height];
+                rayName = "Zemin U-Profil";
+                dikmeName = "Duvar U-Profil";
+            } else if (model === 'bella-pivot') {
+                const bestKapi = stockGlassSizes.reduce((prev, curr) => Math.abs(curr - (width - 4)) < Math.abs(prev - (width - 4)) ? curr : prev, 70);
+                glassArea = bestKapi / 100 * (height / 100);
+                rayLength = 0;
+                dikmeLength = (2 * height) / 100;
+                dikmeCuts = [height, height];
+                dikmeName = "Pivot Menteşe ve Karşı Profili";
+            } else if (model === 'bella-oval') {
+                let bestSabit = 45;
+                let bestKapi = 50;
+                let minDiff = 999;
+                for (let s of stockGlassSizes) {
+                    for (let k of stockGlassSizes) {
+                        let totalGlass = s + k;
+                        let overlap = totalGlass - width;
+                        if (overlap >= 2.0 && overlap <= 6.0) {
+                            let diff = Math.abs(overlap - 3.5);
+                            if (diff < minDiff) {
+                                minDiff = diff;
+                                bestSabit = s;
+                                bestKapi = k;
+                            }
+                        }
+                    }
+                }
+                glassArea = (2 * bestSabit + 2 * bestKapi) / 100 * (height / 100);
+                rayLength = (2 * (width - rayOffset) + 2 * (depth - rayOffset)) / 100;
+                dikmeLength = (2 * height) / 100;
+                rayCuts = [width - rayOffset, width - rayOffset, depth - rayOffset, depth - rayOffset];
+                dikmeCuts = [height, height];
+                rayName = "Oval Bükümlü Ray Profili";
+            }
+
+            // --- COST ESTIMATIONS ---
+            const priceGlass = parseFloat(priceGlassInput.value) || 500;
+            const priceRay = parseFloat(priceRayInput.value) || 150;
+            const priceDikme = parseFloat(priceDikmeInput.value) || 120;
+            const priceAcc = parseFloat(priceAccInput.value) || 400;
+
+            let glassCost = glassArea * priceGlass;
+            let rayCost = rayLength * priceRay;
+            let dikmeCost = dikmeLength * priceDikme;
+            let accCost = priceAcc;
+            let totalCost = glassCost + rayCost + dikmeCost + accCost;
+
+            // Generate HTML for Cost Analysis
+            let isCostsHiddenClass = showCostsCheckbox.checked ? "" : "hide-costs-print";
+
+            let costHtml = `
+                <div class="bom-group ${isCostsHiddenClass}" id="maliyet-grubu" style="margin-top: 10px; border-top: 1px dashed var(--border); padding-top: 10px;">
+                    <div class="group-header" style="color: #f59e0b;">💰 MALİYET ANALİZİ (YÖNETİCİ / MUHASEBE)</div>
+                    <div class="bom-item"><span class="name">Cam Maliyeti (${glassArea.toFixed(2)} m²)</span><span class="value" style="color:#ffffff;">${glassCost.toFixed(0)} TL</span></div>
+                    ${rayLength > 0 ? `<div class="bom-item"><span class="name">Alüminyum Ray Maliyeti (${rayLength.toFixed(2)} m)</span><span class="value" style="color:#ffffff;">${rayCost.toFixed(0)} TL</span></div>` : ''}
+                    ${dikmeLength > 0 ? `<div class="bom-item"><span class="name">Duvar Dikmesi Maliyeti (${dikmeLength.toFixed(2)} m)</span><span class="value" style="color:#ffffff;">${dikmeCost.toFixed(0)} TL</span></div>` : ''}
+                    <div class="bom-item"><span class="name">Aksesuar Paketi & Sarf Malzeme</span><span class="value" style="color:#ffffff;">${accCost.toFixed(0)} TL</span></div>
+                    <div class="bom-item" style="background:#22c55e15; border: 1px solid #22c55e44; margin-top:4px;">
+                        <span class="name" style="font-weight:700; color:#4ade80;">TOPLAM MALZEME MALİYETİ</span>
+                        <span class="value" style="color:#4ade80; font-size:16px; font-weight:800;">${totalCost.toFixed(0)} TL</span>
+                    </div>
+                </div>
+            `;
+
+            htmlContent += generateAnalysisHTML(rayCuts, dikmeCuts, rayName, dikmeName);
+            htmlContent += costHtml;
+
+            bomOutputs.innerHTML = htmlContent;
+        }
+
+        function triggerPrint() {
+            document.getElementById('print-date').innerText = "Tarih: " + new Date().toLocaleDateString('tr-TR');
+            window.print();
+        }
+
+        // Run calculation on init
+        onModelChange();
+    </script>
+</body>
+</html>
