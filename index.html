@@ -344,35 +344,113 @@
 
         /* Print Area */
         @media print {
+            @page {
+                size: 80mm auto;
+                margin: 3mm 2mm;
+            }
+
+            * {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
             body {
                 background: white !important;
                 color: black !important;
-                padding: 0;
+                padding: 0 !important;
+                margin: 0 !important;
+                width: 76mm !important;
+                font-size: 11px !important;
             }
-            header, .select-input, .product-image-container, .presets-grid, .input-row, .advanced-toggle, .advanced-panel, .print-btn, .card-title, .card:first-child {
+
+            #login-overlay,
+            header,
+            .card:first-child,
+            .print-btn,
+            .hide-costs-print {
                 display: none !important;
             }
+
+            #app-container {
+                display: block !important;
+            }
+
+            .container {
+                max-width: 76mm !important;
+                width: 76mm !important;
+                gap: 4px !important;
+                padding: 0 !important;
+            }
+
+            .main-layout {
+                display: block !important;
+                width: 100% !important;
+            }
+
             .card {
                 border: none !important;
                 box-shadow: none !important;
                 background: white !important;
                 width: 100% !important;
+                padding: 0 !important;
+                gap: 4px !important;
             }
-            .bom-item {
-                background: #f8fafc !important;
-                border: 1px solid #e2e8f0 !important;
-            }
-            .bom-item .name, .bom-item .value {
-                color: black !important;
-            }
+
             .print-title {
                 display: block !important;
-                text-align: center;
-                border-bottom: 2px solid black;
-                padding-bottom: 10px;
-                margin-bottom: 20px;
+                text-align: center !important;
+                border-bottom: 1px dashed black !important;
+                padding-bottom: 4px !important;
+                margin-bottom: 6px !important;
+                font-size: 12px !important;
             }
-            .hide-costs-print {
+
+            .print-title h2 {
+                font-size: 14px !important;
+                font-weight: 700 !important;
+            }
+
+            .group-header {
+                font-size: 10px !important;
+                color: black !important;
+                margin-top: 6px !important;
+                margin-bottom: 2px !important;
+                border-bottom: 1px dashed #999 !important;
+                padding-bottom: 1px !important;
+            }
+
+            .bom-item {
+                background: none !important;
+                border: none !important;
+                border-bottom: 1px dotted #ccc !important;
+                padding: 2px 0 !important;
+                display: flex !important;
+                justify-content: space-between !important;
+                border-left: none !important;
+            }
+
+            .bom-item .name,
+            .bom-item .name * {
+                font-size: 11px !important;
+                color: black !important;
+            }
+
+            .bom-item .value,
+            .bom-item .value * {
+                font-size: 11px !important;
+                font-weight: 700 !important;
+                color: black !important;
+            }
+
+            .card-title,
+            .advanced-toggle,
+            .advanced-panel,
+            .product-image-container,
+            .presets-grid,
+            .input-row,
+            .input-box,
+            select,
+            input[type="checkbox"] + label {
                 display: none !important;
             }
         }
@@ -566,10 +644,15 @@
                     <label for="model-selector">Aktif Duş Kabini Modeli</label>
                     <select id="model-selector" class="select-input" onchange="onModelChange()">
                         <option value="bella-kare">Bella Kare (Köşe Giriş Sürgülü)</option>
-                        <option value="bella-niche">Bella İki Duvar Arası (Niche Sürgülü)</option>
-                        <option value="bella-walkin">Bella Walk-In (Sabit Panel)</option>
-                        <option value="bella-pivot">Bella Pivot (Menteşeli Kapı)</option>
-                        <option value="bella-oval">Bella Oval (Kavisli Köşe Girişli)</option>
+                    </select>
+                </div>
+
+                <!-- Cam Tipi -->
+                <div class="input-box">
+                    <label for="cam-tipi-selector">Cam Tipi</label>
+                    <select id="cam-tipi-selector" class="select-input" onchange="calculate()">
+                        <option value="damla">Damla Cam</option>
+                        <option value="yunus">Yunus Cam</option>
                     </select>
                 </div>
 
@@ -613,7 +696,7 @@
 
                 <div class="input-box">
                     <label for="height-input">Kabin Yükseklik (cm)</label>
-                    <input type="number" id="height-input" class="number-input" value="190" oninput="onCustomChange()">
+                    <input type="number" id="height-input" class="number-input" value="180" max="180" oninput="onCustomChange(); if(this.value>180) this.value=180;">
                 </div>
 
                 <!-- Advanced Settings Toggle -->
@@ -631,29 +714,6 @@
                         <label for="stock-glass-input">Stok Cam Ölçüleri (cm)</label>
                         <input type="text" id="stock-glass-input" class="text-input" value="15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70" oninput="calculate()">
                     </div>
-                    <div style="border-top: 1px dashed var(--border); margin-top: 6px; padding-top: 8px;">
-                        <span style="font-size:12px; font-weight:700; color:var(--primary-light); text-transform:uppercase;">💰 MALİYET PARAMETRELERİ (TL)</span>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-box">
-                            <label for="price-glass-input">Cam (TL / m²)</label>
-                            <input type="number" id="price-glass-input" class="number-input" value="500" oninput="calculate()">
-                        </div>
-                        <div class="input-box">
-                            <label for="price-ray-input">Ray Profil (TL / m)</label>
-                            <input type="number" id="price-ray-input" class="number-input" value="150" oninput="calculate()">
-                        </div>
-                    </div>
-                    <div class="input-row">
-                        <div class="input-box">
-                            <label for="price-dikme-input">Duvar Profil (TL / m)</label>
-                            <input type="number" id="price-dikme-input" class="number-input" value="120" oninput="calculate()">
-                        </div>
-                        <div class="input-box">
-                            <label for="price-acc-input">Aksesuar Paketi (TL)</label>
-                            <input type="number" id="price-acc-input" class="number-input" value="400" oninput="calculate()">
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -663,11 +723,6 @@
 
                 <div id="bom-outputs">
                     <!-- Dynamic Outputs will be inserted here by JavaScript -->
-                </div>
-
-                <div style="margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--border); display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-muted);">
-                    <input type="checkbox" id="show-costs-checkbox" onchange="toggleCostsPrint()" style="cursor:pointer; width:16px; height:16px;">
-                    <label for="show-costs-checkbox" style="cursor:pointer; user-select:none; color: var(--text-main); font-weight: 500;">💰 Maliyet Raporunu Çıktıda Göster</label>
                 </div>
 
                 <button class="print-btn" onclick="triggerPrint()">🖨️ Kesim Fişini Yazdır</button>
@@ -966,47 +1021,52 @@
 
             // --- MODEL 1: BELLA KARE (Symmetrical Corner Sliding) ---
             if (model === 'bella-kare') {
-                let bestSabit = 45;
-                let bestKapi = 50;
-                let minDiff = 999;
-                let currentOverlap = 3;
-                
-                for (let s of stockGlassSizes) {
-                    for (let k of stockGlassSizes) {
-                        let totalGlass = s + k;
-                        let overlap = totalGlass - width;
-                        if (overlap >= 2.0 && overlap <= 6.0) {
-                            let diff = Math.abs(overlap - 3.5);
-                            if (diff < minDiff) {
-                                minDiff = diff;
-                                bestSabit = s;
-                                bestKapi = k;
-                                currentOverlap = overlap;
-                            }
-                        }
-                    }
-                }
+                const solCam = (width - 6) / 2;
+                const sagCam = (depth - 6) / 2;
+                const camYukseklik = height - 10.9;
+
+                const solKafa = solCam - 1.5;
+                const sagKafa = sagCam - 1.5;
+                const camTipiEl = document.getElementById('cam-tipi-selector');
+                const camTipiLabel = camTipiEl.options[camTipiEl.selectedIndex].text;
 
                 htmlContent = `
                     <div class="bom-group">
-                        <div class="group-header" style="color: var(--accent-glass);">📦 CAM BOYUTLARI (STOKTAN ALINACAK)</div>
-                        <div class="bom-item"><span class="name">Sabit Yan Camlar (2 Adet)</span><span class="value">${bestSabit.toFixed(1)} cm</span></div>
-                        <div class="bom-item"><span class="name">Kayan Kapı Camları (2 Adet)</span><span class="value">${bestKapi.toFixed(1)} cm</span></div>
-                        <div class="bom-item" style="background:transparent; border:none; padding:4px 0;"><span class="name" style="font-size:12px; color:var(--text-muted);">Cam Biniş Toleransı</span><span class="value" style="font-size:12px; color:var(--text-muted);">${currentOverlap.toFixed(1)} cm biniş</span></div>
+                        <div class="group-header" style="color: var(--accent-glass);">📐 CAM PARÇA LİSTESİ</div>
+                        <div class="bom-item"><span class="name">Cam Tipi</span><span class="value">${camTipiLabel}</span></div>
+                        <div class="bom-item"><span class="name">Sol Duvar Camları (2 Adet)</span><span class="value">${solCam.toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Sağ Duvar Camları (2 Adet)</span><span class="value">${sagCam.toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Cam Yüksekliği (4 Adet)</span><span class="value">${camYukseklik.toFixed(1)} cm</span></div>
                     </div>
                     <div class="bom-group">
-                        <div class="group-header" style="color: var(--accent-profile);">🪚 ATÖLYE KESİM ÖLÇÜLERİ</div>
-                        <div class="bom-item"><span class="name">Sol Yön Ray Kesimi (2 Adet)</span><span class="value">${(width - rayOffset).toFixed(1)} cm</span></div>
-                        <div class="bom-item"><span class="name">Sağ Yön Ray Kesimi (2 Adet)</span><span class="value">${(depth - rayOffset).toFixed(1)} cm</span></div>
-                        <div class="bom-item"><span class="name">Duvar Dikmesi Boyu (2 Adet)</span><span class="value">${height.toFixed(1)} cm</span></div>
-                        <div class="bom-item"><span class="name">Mıknatıs Boyu (2 Adet)</span><span class="value">${(height - 1.5).toFixed(1)} cm</span></div>
+                        <div class="group-header" style="color: var(--accent-profile);">🔩 KAFA PROFİLLERİ</div>
+                        <div class="bom-item"><span class="name">Sol Kafa Profili (${solKafa.toFixed(1)} cm)</span><span class="value">1 Set</span></div>
+                        <div class="bom-item"><span class="name">Sağ Kafa Profili (${sagKafa.toFixed(1)} cm)</span><span class="value">1 Set</span></div>
                     </div>
                     <div class="bom-group">
-                        <div class="group-header" style="color: #f59e0b;">🔩 AKSESUARLAR</div>
-                        <div class="bom-item"><span class="name">Köşe Takozu (Bella)</span><span class="value">4 Adet</span></div>
-                        <div class="bom-item"><span class="name">Rulman Tekerlekleri</span><span class="value">8 Adet</span></div>
-                        <div class="bom-item"><span class="name">Alt Su Damlalık Fitili (Suluk)</span><span class="value">${bestKapi.toFixed(1)} cm (2 Adet)</span></div>
-                        <div class="bom-item"><span class="name">Kapı Kulbu (Set)</span><span class="value">2 Set</span></div>
+                        <div class="group-header" style="color: #38bdf8;">📏 RAYLAR</div>
+                        <div class="bom-item"><span class="name">Sol Ray (1 Adet)</span><span class="value">${(width - 7).toFixed(1)} cm</span></div>
+                        <div class="bom-item"><span class="name">Sağ Ray (1 Adet)</span><span class="value">${(depth - 7).toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: #a78bfa;">🔲 KÖŞE DİKMESİ</div>
+                        <div class="bom-item"><span class="name">Köşe Dikmesi (1 Adet)</span><span class="value">${(height - 5.5).toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: #fb923c;">💧 YAN SULUK</div>
+                        <div class="bom-item"><span class="name">Yan Suluk (1 Adet)</span><span class="value">${(height - 5.5).toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: #94a3b8;">🪟 ARKA SABİT</div>
+                        <div class="bom-item"><span class="name">Arka Sabit (1 Adet)</span><span class="value">${height.toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: #64748b;">📌 DUVAR DİKMESİ</div>
+                        <div class="bom-item"><span class="name">Duvar Dikmesi (1 Adet)</span><span class="value">${height.toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: #f59e0b;">🔩 KÖŞE TAKOZU</div>
+                        <div class="bom-item"><span class="name">Köşe Takozu</span><span class="value">2 Adet</span></div>
                     </div>
                 `;
             }
@@ -1036,7 +1096,7 @@
 
                 htmlContent = `
                     <div class="bom-group">
-                        <div class="group-header" style="color: var(--accent-glass);">📦 CAM BOYUTLARI (STOKTAN ALINACAK)</div>
+                        <div class="group-header" style="color: var(--accent-glass);">📐 CAM PARÇA LİSTESİ</div>
                         <div class="bom-item"><span class="name">Sabit Duvar Camı (1 Adet)</span><span class="value">${bestSabit.toFixed(1)} cm</span></div>
                         <div class="bom-item"><span class="name">Kayan Kapı Camı (1 Adet)</span><span class="value">${bestKapi.toFixed(1)} cm</span></div>
                         <div class="bom-item" style="background:transparent; border:none; padding:4px 0;"><span class="name" style="font-size:12px; color:var(--text-muted);">Düz Bindirme</span><span class="value" style="font-size:12px; color:var(--text-muted);">${currentOverlap.toFixed(1)} cm biniş</span></div>
@@ -1129,7 +1189,7 @@
 
                 htmlContent = `
                     <div class="bom-group">
-                        <div class="group-header" style="color: var(--accent-glass);">📦 CAM BOYUTLARI (STOKTAN ALINACAK)</div>
+                        <div class="group-header" style="color: var(--accent-glass);">📐 CAM PARÇA LİSTESİ</div>
                         <div class="bom-item"><span class="name">Düz Sabit Yan Camlar (2 Adet)</span><span class="value">${bestSabit.toFixed(1)} cm</span></div>
                         <div class="bom-item"><span class="name">Kavisli Oval Kapı Camları (2 Adet)</span><span class="value">${bestKapi.toFixed(1)} cm (KAVİSLİ)</span></div>
                     </div>
@@ -1148,136 +1208,6 @@
                     </div>
                 `;
             }
-
-            // Generate dynamic 6m raw profile analysis and cost estimations
-            let rayCuts = [];
-            let dikmeCuts = [];
-            let rayName = "Ray Profili";
-            let dikmeName = "Duvar Dikmesi Profili";
-
-            let glassArea = 0;
-            let rayLength = 0;
-            let dikmeLength = 0;
-
-            if (model === 'bella-kare') {
-                let bestSabit = 45;
-                let bestKapi = 50;
-                let minDiff = 999;
-                for (let s of stockGlassSizes) {
-                    for (let k of stockGlassSizes) {
-                        let totalGlass = s + k;
-                        let overlap = totalGlass - width;
-                        if (overlap >= 2.0 && overlap <= 6.0) {
-                            let diff = Math.abs(overlap - 3.5);
-                            if (diff < minDiff) {
-                                minDiff = diff;
-                                bestSabit = s;
-                                bestKapi = k;
-                            }
-                        }
-                    }
-                }
-                glassArea = (2 * bestSabit + 2 * bestKapi) / 100 * (height / 100);
-                rayLength = (2 * (width - rayOffset) + 2 * (depth - rayOffset)) / 100;
-                dikmeLength = (2 * height) / 100;
-                rayCuts = [width - rayOffset, width - rayOffset, depth - rayOffset, depth - rayOffset];
-                dikmeCuts = [height, height];
-            } else if (model === 'bella-niche') {
-                let bestSabit = 50;
-                let bestKapi = 55;
-                let minDiff = 999;
-                for (let s of stockGlassSizes) {
-                    for (let k of stockGlassSizes) {
-                        let totalGlass = s + k;
-                        let overlap = totalGlass - width;
-                        if (overlap >= 3.0 && overlap <= 7.0) {
-                            let diff = Math.abs(overlap - 4.5);
-                            if (diff < minDiff) {
-                                minDiff = diff;
-                                bestSabit = s;
-                                bestKapi = k;
-                            }
-                        }
-                    }
-                }
-                glassArea = (bestSabit + bestKapi) / 100 * (height / 100);
-                rayLength = (2 * (width - 1.5)) / 100;
-                dikmeLength = (2 * height) / 100;
-                rayCuts = [width - 1.5, width - 1.5];
-                dikmeCuts = [height, height];
-            } else if (model === 'bella-walkin') {
-                const bestSabit = stockGlassSizes.reduce((prev, curr) => Math.abs(curr - width) < Math.abs(prev - width) ? curr : prev, 80);
-                glassArea = bestSabit / 100 * (height / 100);
-                rayLength = bestSabit / 100; // Zemin U-profil
-                dikmeLength = height / 100; // Duvar U-profil
-                rayCuts = [bestSabit];
-                dikmeCuts = [height];
-                rayName = "Zemin U-Profil";
-                dikmeName = "Duvar U-Profil";
-            } else if (model === 'bella-pivot') {
-                const bestKapi = stockGlassSizes.reduce((prev, curr) => Math.abs(curr - (width - 4)) < Math.abs(prev - (width - 4)) ? curr : prev, 70);
-                glassArea = bestKapi / 100 * (height / 100);
-                rayLength = 0;
-                dikmeLength = (2 * height) / 100;
-                dikmeCuts = [height, height];
-                dikmeName = "Pivot Menteşe ve Karşı Profili";
-            } else if (model === 'bella-oval') {
-                let bestSabit = 45;
-                let bestKapi = 50;
-                let minDiff = 999;
-                for (let s of stockGlassSizes) {
-                    for (let k of stockGlassSizes) {
-                        let totalGlass = s + k;
-                        let overlap = totalGlass - width;
-                        if (overlap >= 2.0 && overlap <= 6.0) {
-                            let diff = Math.abs(overlap - 3.5);
-                            if (diff < minDiff) {
-                                minDiff = diff;
-                                bestSabit = s;
-                                bestKapi = k;
-                            }
-                        }
-                    }
-                }
-                glassArea = (2 * bestSabit + 2 * bestKapi) / 100 * (height / 100);
-                rayLength = (2 * (width - rayOffset) + 2 * (depth - rayOffset)) / 100;
-                dikmeLength = (2 * height) / 100;
-                rayCuts = [width - rayOffset, width - rayOffset, depth - rayOffset, depth - rayOffset];
-                dikmeCuts = [height, height];
-                rayName = "Oval Bükümlü Ray Profili";
-            }
-
-            // --- COST ESTIMATIONS ---
-            const priceGlass = parseFloat(priceGlassInput.value) || 500;
-            const priceRay = parseFloat(priceRayInput.value) || 150;
-            const priceDikme = parseFloat(priceDikmeInput.value) || 120;
-            const priceAcc = parseFloat(priceAccInput.value) || 400;
-
-            let glassCost = glassArea * priceGlass;
-            let rayCost = rayLength * priceRay;
-            let dikmeCost = dikmeLength * priceDikme;
-            let accCost = priceAcc;
-            let totalCost = glassCost + rayCost + dikmeCost + accCost;
-
-            // Generate HTML for Cost Analysis
-            let isCostsHiddenClass = showCostsCheckbox.checked ? "" : "hide-costs-print";
-
-            let costHtml = `
-                <div class="bom-group ${isCostsHiddenClass}" id="maliyet-grubu" style="margin-top: 10px; border-top: 1px dashed var(--border); padding-top: 10px;">
-                    <div class="group-header" style="color: #f59e0b;">💰 MALİYET ANALİZİ (YÖNETİCİ / MUHASEBE)</div>
-                    <div class="bom-item"><span class="name">Cam Maliyeti (${glassArea.toFixed(2)} m²)</span><span class="value" style="color:#ffffff;">${glassCost.toFixed(0)} TL</span></div>
-                    ${rayLength > 0 ? `<div class="bom-item"><span class="name">Alüminyum Ray Maliyeti (${rayLength.toFixed(2)} m)</span><span class="value" style="color:#ffffff;">${rayCost.toFixed(0)} TL</span></div>` : ''}
-                    ${dikmeLength > 0 ? `<div class="bom-item"><span class="name">Duvar Dikmesi Maliyeti (${dikmeLength.toFixed(2)} m)</span><span class="value" style="color:#ffffff;">${dikmeCost.toFixed(0)} TL</span></div>` : ''}
-                    <div class="bom-item"><span class="name">Aksesuar Paketi & Sarf Malzeme</span><span class="value" style="color:#ffffff;">${accCost.toFixed(0)} TL</span></div>
-                    <div class="bom-item" style="background:#22c55e15; border: 1px solid #22c55e44; margin-top:4px;">
-                        <span class="name" style="font-weight:700; color:#4ade80;">TOPLAM MALZEME MALİYETİ</span>
-                        <span class="value" style="color:#4ade80; font-size:16px; font-weight:800;">${totalCost.toFixed(0)} TL</span>
-                    </div>
-                </div>
-            `;
-
-            htmlContent += generateAnalysisHTML(rayCuts, dikmeCuts, rayName, dikmeName);
-            htmlContent += costHtml;
 
             bomOutputs.innerHTML = htmlContent;
         }
