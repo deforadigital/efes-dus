@@ -360,7 +360,7 @@
                 padding: 0 !important;
                 margin: 0 !important;
                 width: 76mm !important;
-                font-size: 11px !important;
+                font-size: 13px !important;
             }
 
             #login-overlay,
@@ -399,45 +399,59 @@
             .print-title {
                 display: block !important;
                 text-align: center !important;
-                border-bottom: 1px dashed black !important;
-                padding-bottom: 4px !important;
-                margin-bottom: 6px !important;
-                font-size: 12px !important;
+                border-bottom: 2px solid black !important;
+                padding-bottom: 6px !important;
+                margin-bottom: 8px !important;
+                font-size: 13px !important;
             }
 
             .print-title h2 {
-                font-size: 14px !important;
+                font-size: 16px !important;
+                font-weight: 700 !important;
+                letter-spacing: 1px !important;
+            }
+
+            .print-title #print-customer {
+                font-size: 15px !important;
                 font-weight: 700 !important;
             }
 
-            .group-header {
-                font-size: 10px !important;
-                color: black !important;
-                margin-top: 6px !important;
+            .bom-group {
                 margin-bottom: 2px !important;
-                border-bottom: 1px dashed #999 !important;
-                padding-bottom: 1px !important;
+            }
+
+            .group-header {
+                font-size: 11px !important;
+                font-weight: 700 !important;
+                color: black !important;
+                margin-top: 8px !important;
+                margin-bottom: 3px !important;
+                border-top: 2px solid black !important;
+                border-bottom: 1px solid black !important;
+                padding: 2px 0 !important;
+                letter-spacing: 0.5px !important;
             }
 
             .bom-item {
                 background: none !important;
                 border: none !important;
-                border-bottom: 1px dotted #ccc !important;
-                padding: 2px 0 !important;
+                border-bottom: 1px dashed #000 !important;
+                padding: 4px 0 !important;
                 display: flex !important;
                 justify-content: space-between !important;
+                align-items: baseline !important;
                 border-left: none !important;
             }
 
             .bom-item .name,
             .bom-item .name * {
-                font-size: 11px !important;
+                font-size: 12px !important;
                 color: black !important;
             }
 
             .bom-item .value,
             .bom-item .value * {
-                font-size: 11px !important;
+                font-size: 14px !important;
                 font-weight: 700 !important;
                 color: black !important;
             }
@@ -1055,6 +1069,10 @@
                     <div class="bom-group">
                         <div class="group-header" style="color: #fb923c;">💧 YAN SULUK</div>
                         <div class="bom-item"><span class="name">Yan Suluk (1 Adet)</span><span class="value">${(height - 5.5).toFixed(1)} cm</span></div>
+                    </div>
+                    <div class="bom-group">
+                        <div class="group-header" style="color: #22d3ee;">🔧 ÖN BORU</div>
+                        <div class="bom-item"><span class="name">Ön Boru (1 Adet)</span><span class="value">${(height - 12).toFixed(1)} cm</span></div>
                     </div>
                     <div class="bom-group">
                         <div class="group-header" style="color: #94a3b8;">🪟 ARKA SABİT</div>
